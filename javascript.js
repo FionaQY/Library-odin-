@@ -1,7 +1,7 @@
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
-  this.number = pages;
+  this.number = parseInt(pages);
   this.read = read;
 }
 
@@ -12,7 +12,7 @@ Book.prototype.info = function()  {
 }
 
 Book.prototype.changeRead = function()  {
-  this.read = !(this.read);
+  return new Book(this.title, this.author, this.number, !this.read);
 }
 const myLibrary = [];
 
@@ -32,37 +32,44 @@ function addBookToLibrary() {
 
 function displayBooks() {
   const library = document.getElementById("library");
-  for (var b of myLibrary)  {
+  library.textContent = "";
+  for (let i = 0; i < myLibrary.length; i++)  {
+    const b = myLibrary[i];
+
     const len = "" + window.innerWidth/5 + "px";
 
     const book = document.createElement("div");
     book.textContent = b.info();
     book.style.width = len;
-    book.style.height = '100px';
-    book.style.color = "red";
+    book.style.height = '200px';
+    book.style.color = "black";
     book.style.border = '1px solid black';
     book.style.margin = '0px';
     book.style.padding = '0px';
     book.style.flex = 1;
     book.style.textAlign = 'center';
+    book.style.backgroundColor = 'pink';
     const but = document.createElement("button");
     but.textContent = "Change Status"
+
     but.onclick = () => {
-      b.changeRead();
+      myLibrary[i] = myLibrary[i].changeRead();
       book.textContent = b.info();
+      displayBooks();
     }
 
     const remove = document.createElement("button");
     remove.textContent = "Remove this book";
     remove.onclick = () => {
-      const index = myLibrary.indexOf(b);
-      myLibrary.splice(index, index);
-      // displayBooks();
+      library.textContent = "";
+      myLibrary.splice(i, 1);
+      displayBooks();
     }
 
     book.append(but);
     book.append(remove);
     library.appendChild(book);
+
   }
   
 }
