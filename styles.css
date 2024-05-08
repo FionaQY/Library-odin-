@@ -1,0 +1,17 @@
+*{
+    text-align: center;
+    border: 5px solid salmon;
+}
+
+#inputs{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+#library{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
